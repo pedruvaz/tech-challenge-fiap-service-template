@@ -1,0 +1,25 @@
+# O namespace `tech-challenge` é um placeholder: quem define o definitivo é a
+# plataforma (Matheus).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-template-config
+  namespace: tech-challenge
+  labels:
+    app.kubernetes.io/name: service-template
+    app.kubernetes.io/part-of: tech-challenge-fiap
+data:
+  NODE_ENV: production
+  PORT: "3000"
+  APP_ENV: production
+  LOG_LEVEL: info
+  OTEL_SERVICE_NAME: service-template
+  # Mensageria: em produção é sempre SQS. Os valores abaixo são placeholders;
+  # a plataforma preenche com as URLs reais das filas.
+  MESSAGING_DRIVER: sqs
+  MESSAGING_INBOUND_QUEUE: service-template.commands
+  MESSAGING_INBOUND_QUEUE_URL: "REPLACE_ME_SQS_INBOUND_QUEUE_URL"
+  # Uma env por fila de destino: MESSAGING_QUEUE_<NOME_LOGICO>
+  MESSAGING_QUEUE_ORCHESTRATOR_REPLIES: "REPLACE_ME_SQS_ORCHESTRATOR_REPLIES_URL"
+  OUTBOX_POLL_INTERVAL_MS: "1000"
+  AWS_REGION: us-east-1

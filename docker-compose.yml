@@ -1,0 +1,9 @@
+# Só a API, com mensageria em memória. Para SQS de verdade, use as filas da AWS.
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      MESSAGING_DRIVER: memory
+      OTEL_SDK_DISABLED: "true"
