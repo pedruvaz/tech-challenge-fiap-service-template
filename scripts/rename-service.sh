@@ -23,4 +23,12 @@ if [[ -f package-lock.json ]]; then
   NOVO="$NOVO" perl -pi -e 's/"name": "service-template"/"name": "$ENV{NOVO}"/ if $. <= 12' package-lock.json
 fi
 
+# O nome novo muda o tamanho das linhas, e o prettier (checado no Lint da CI)
+# passa a querer quebrá-las ou juntá-las de outro jeito.
+if [[ -x node_modules/.bin/prettier ]]; then
+  npm run --silent format
+else
+  echo "Rode 'npm install && npm run format' antes de commitar." >&2
+fi
+
 echo "Renomeado para '$NOVO'."
